@@ -1,11 +1,11 @@
 $(function() {
     //点击“去注册账号”
     $('#link_reg').on('click', function() {
-        $('.login-box').hide().siblings('.reg-box').show()
+        $('.login-box').hide(400).siblings('.reg-box').show(400)
     });
     //点击“去登陆”
     $('#link_login').on('click', function() {
-        $('.reg-box').hide().siblings('.login-box').show()
+        $('.reg-box').hide(400).siblings('.login-box').show(400)
     });
 
     //从layui中获取form对象

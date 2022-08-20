@@ -42,7 +42,7 @@ body {
 
 .links {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
 }
 
 .links a {
@@ -64,6 +64,7 @@ body {
 .layui-input {
     padding-left: 32px;
     border-radius: 8px;
+    height: 40px;
 }
 
 .layui-input::-webkit-input-placeholder {
