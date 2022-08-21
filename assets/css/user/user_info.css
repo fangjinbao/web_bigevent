@@ -12,7 +12,3 @@ body {
 .layui-form {
     width: 500px;
 }
-
-.layui-form .layui-form-item:nth-child(1) input {
-    border: none !important;
-}
