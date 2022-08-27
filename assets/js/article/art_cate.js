@@ -47,4 +47,70 @@ $(function() {
         })
     })
 
+    var indexEdit = null;
+    //点击编辑文章通过代理绑定监听事件
+    $('tbody').on('click', '.btn-edit', function() {
+        indexEdit = layui.layer.open({
+            type: 1,
+            area: ['500px'],
+            title: '修改文章分类',
+            content: $('#dialog-edit').html()
+        })
+        var data_id = $(this).attr('data-id')
+
+        // console.log(index);
+        $.ajax({
+            method: 'GET',
+            url: '/my/cate/info',
+            data: { id: data_id },
+            success: function(res) {
+                // console.log(res)
+                layui.form.val('form-edit', res.data)
+            }
+        })
+    })
+
+    //编辑文章更新分类监听事件
+    $('body').on('submit', '#form-edit', function(e) {
+        e.preventDefault()
+
+        // console.log($(this).serialize())
+        $.ajax({
+            method: 'PUT',
+            url: '/my/cate/info',
+            data: $(this).serialize(),
+            success: function(res) {
+                // console.log(res);
+                if (res.code !== 0) {
+                    return layui.layer.msg('更新分类失败')
+                }
+                layui.layer.msg('更新分类成功')
+                layui.layer.close(indexEdit)
+                initArtCateList()
+            }
+        })
+    })
+
+    //代理形式删除按钮绑定事件
+    $('tbody').on('click', '.btn-delete', function() {
+        var id = $(this).attr('data-id')
+            // console.log(id);
+        layui.layer.confirm('确认删除？', { icon: 3, title: '提示' }, function(index) {
+            $.ajax({
+                type: 'DELETE',
+                url: '/my/cate/del',
+                data: {
+                    id: id,
+                },
+                success: function(res) {
+                    if (res.code !== 0) {
+                        return layui.layer.msg('删除分类失败')
+                    }
+                    layui.layer.msg('删除分类成功')
+                    layer.close(index)
+                    initArtCateList()
+                }
+            })
+        });
+    })
 })
